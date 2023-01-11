@@ -1,1 +1,11 @@
+language: python
+
+install:
+  - pip install awscli
+  - export PATH=$PATH:$HOME/.local/bin
+
+script:
+  - aws s3 sync . s3://dsresbuck --delete
+  - aws configure set preview.cloudfront true
+  - aws cloudfront create-invalidation --distribution-id E1RGONFN2GS7A2 --paths "/*"
 
